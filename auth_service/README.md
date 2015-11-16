@@ -1,4 +1,4 @@
 # Auth services
 
-Authentication services for asset-management
+Rails authentication services for asset-management.
 
