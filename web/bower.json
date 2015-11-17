@@ -1,0 +1,24 @@
+{
+  "name": "asset-management-web",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Matt Todd <matt.c.todd@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/caspian311/asset-management",
+  "moduleType": [
+    "node"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4"
+  }
+}
