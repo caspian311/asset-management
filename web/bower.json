@@ -1,24 +1,20 @@
 {
-  "name": "asset-management-web",
-  "description": "",
-  "main": "index.js",
-  "authors": [
-    "Matt Todd <matt.c.todd@gmail.com>"
-  ],
-  "license": "ISC",
-  "homepage": "https://github.com/caspian311/asset-management",
-  "moduleType": [
-    "node"
-  ],
+  "name": "web",
   "private": true,
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
   "dependencies": {
-    "jquery": "~2.1.4"
+    "bootstrap-sass": "~3.3.5"
+  },
+  "overrides": {
+    "bootstrap-sass": {
+      "main": [
+        "assets/stylesheets/_bootstrap.scss",
+        "assets/fonts/bootstrap/*",
+        "assets/javascripts/bootstrap.js"
+      ]
+    }
+  },
+  "devDependencies": {
+    "chai": "~3.4.2",
+    "mocha": "~2.3.4"
   }
 }
