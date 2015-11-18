@@ -3,7 +3,8 @@
   "private": true,
   "dependencies": {
     "bootstrap-sass": "~3.3.5",
-    "angular": "~1.4.7"
+    "angular": "~1.4.7",
+    "angular-route": "~1.4.7"
   },
   "overrides": {
     "bootstrap-sass": {

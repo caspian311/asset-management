@@ -1,11 +1,22 @@
 (function() {
 
-var app = angular.module('app', []);
+var app = angular.module('app', ['ngRoute', 'assetControllers']);
 
-app.controller('LoginCtrl', function($scope) {
-  $scope.name = 'monkey';
-  $scope.foos = [{ foo: 'bar' }, { foo: 'baz' }];
+app.config(['$routeProvider',
+  function($routeProvider) {
+    $routeProvider.
+      when('/login', {
+        templateUrl: 'partials/login.html',
+        controller: 'LoginCtrl'
+      }).
+      otherwise({
+        redirectTo: '/login'
+      });
+  }]);
 
+var assetControllers = angular.module('assetControllers', []);
+
+assetControllers.controller('LoginCtrl', function($scope) {
   $scope.signin = function() {
     console.log('logging in with: ' + $scope.email + '/' + $scope.password);
   }
