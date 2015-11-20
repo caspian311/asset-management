@@ -1,6 +1,8 @@
 (function() {
   'use strict';
 
+  var endpoint = 'http://localhost:3000/api/auth/session';
+
   angular.module('assetControllers', []).controller('LoginCtrl', ['$scope', '$http', LoginController]);
 
   function LoginController(scope, $http) {
@@ -9,7 +11,7 @@
     scope.signin = function() {
       scope.signinButtonEnabled = false;
 
-      $http.post('/auth/session', { email: scope.email, password: scope.password })
+      $http.post(endpoint, { email: scope.email, password: scope.password })
         .success(loginSuccess)
         .error(loginFailed);
     }

@@ -1,6 +1,8 @@
 (function () {
   'use strict';
 
+  var endpoint = 'http://localhost:3000/api/auth/session';
+
   describe('LoginCtrl', function () {
     var scope, controller, httpBackend
       , authRequestHandler;
@@ -10,7 +12,7 @@
     beforeEach(inject(function($httpBackend, $controller) {
       scope = {};
       httpBackend = $httpBackend;
-      authRequestHandler = httpBackend.when('POST', '/auth/session');
+      authRequestHandler = httpBackend.when('POST', endpoint);
 
       controller = $controller('LoginCtrl', {$scope: scope});
     }));
@@ -46,7 +48,7 @@
           scope.email = 'given email';
           scope.password = 'given password';
           
-          httpBackend.expectPOST('/auth/session', { email: 'given email', password: 'given password' });
+          httpBackend.expectPOST(endpoint, { email: 'given email', password: 'given password' });
 
           scope.signin();
           httpBackend.flush();
@@ -78,7 +80,7 @@
           scope.email = 'bad email';
           scope.password = 'bad password';
 
-          httpBackend.expectPOST('/auth/session');
+          httpBackend.expectPOST(endpoint);
 
           scope.signin();
           httpBackend.flush();
