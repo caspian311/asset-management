@@ -12,7 +12,7 @@
       controller = $controller('LoginCtrl', {$scope: scope});
     }));
 
-    describe('#login', function () {
+    describe('#signin', function () {
       it('should submit email and pass to backend', function ($controller) {
         
         scope.email = 'given email';
