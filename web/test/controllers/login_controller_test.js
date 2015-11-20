@@ -21,24 +21,28 @@
     });
 
     describe('#signin', function () {
-      it('disable signin button while submitting', function() {
-          authRequestHandler.respond(200, {});
+      function verifyLoginButtonBehavior() {
+          it('disable signin button while submitting', function() {
+              authRequestHandler.respond(200, {});
 
-          scope.signinButtonEnabled = true;
+              scope.signinButtonEnabled = true;
 
-          scope.signin();
+              scope.signin();
 
-          expect(scope.signinButtonEnabled).to.be.false; 
+              expect(scope.signinButtonEnabled).to.be.false; 
 
-          httpBackend.flush();
+              httpBackend.flush();
 
-          expect(scope.signinButtonEnabled).to.be.true; 
-      });
+              expect(scope.signinButtonEnabled).to.be.true; 
+          });
+      }
 
       describe('successful login', function() {
-        it('should submit email and pass to backend', function () {
+        beforeEach(function() {
           authRequestHandler.respond(200, {});
+        });
 
+        it('should submit email and pass to backend', function () {
           scope.email = 'given email';
           scope.password = 'given password';
           
@@ -49,11 +53,13 @@
         });
 
         it('should redict me to home page', function () {
-          authRequestHandler.respond(200, {});
-
           scope.signin();
           httpBackend.flush();
+
+          // todo
         });
+
+        verifyLoginButtonBehavior();
       });
 
       describe('invalid login', function() {
@@ -83,4 +89,5 @@
       });
     });
   });
+
 })();
