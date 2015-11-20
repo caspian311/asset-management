@@ -23,7 +23,12 @@ gulp.task('styles', () => {
     .pipe(reload({stream: true}));
 });
 
-gulp.task('html', ['styles'], () => {
+gulp.task('partials', () => {
+  return gulp.src('./app/partials/*.html')
+    .pipe(gulp.dest('./dist/partials'));
+});
+
+gulp.task('html', ['styles', 'partials'], () => {
   const assets = $.useref.assets({searchPath: ['.tmp', 'app', '.']});
 
   return gulp.src('app/*.html')
