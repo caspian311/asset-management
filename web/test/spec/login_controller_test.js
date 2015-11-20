@@ -2,7 +2,7 @@
   'use strict';
 
   describe('LoginCtrl', function () {
-    var scope, controller;
+    var scope, controller, httpBackend;
 
     beforeEach(module('assetControllers'));
 
@@ -20,7 +20,6 @@
         scope.signin();
 
         httpBackend.expectPOST('/auth/session', { email: 'given email', password: 'given password' });
-        $httpBackend.flush();
       });
     });
   });
