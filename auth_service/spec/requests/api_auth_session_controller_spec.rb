@@ -6,6 +6,16 @@ describe Api::Auth::SessionController do
   let!(:user) { create :user, email: email, password: password, first_name: 'Matt', last_name: 'Todd' }
   let(:valid_credentials) { { email: email, password: password } }
 
+  context 'user is not logged in' do
+    context '#index' do
+      it 'return 200' do
+        get api_auth_session_index_path
+
+        expect(response).to have_http_status(401)
+      end
+    end
+  end
+
   context 'user is logged in' do
     before do
       post api_auth_session_index_path, valid_credentials
@@ -33,6 +43,16 @@ describe Api::Auth::SessionController do
         get api_auth_session_index_path
 
         expect(parsed_body['password']).to be_nil
+      end
+    end
+
+    context '#destroy' do
+      it 'should log out the user' do
+        delete api_auth_session_path('user')
+
+        get api_auth_session_index_path
+
+        expect(response).to have_http_status(401)
       end
     end
   end

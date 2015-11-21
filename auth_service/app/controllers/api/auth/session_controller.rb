@@ -2,7 +2,11 @@ class Api::Auth::SessionController < ApplicationController
   respond_to :json
 
   def index
-    render json: session[:user]
+    if session[:user]
+      render json: session[:user]
+    else
+      render nothing: true, status: 401
+    end
   end
 
   def create
@@ -19,7 +23,8 @@ class Api::Auth::SessionController < ApplicationController
   end
 
   def destroy
-    render json: {}
+    session[:user] = nil
+    render nothing: true
   end
 
   private
