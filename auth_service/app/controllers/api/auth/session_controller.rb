@@ -9,8 +9,8 @@ class Api::Auth::SessionController < ApplicationController
     user = User.find_by credentials
     if user
       session[:user] = { 
-        name: "#{user.first_name} #{user.last_name}",
-        email: "#{user.email}" 
+        name: user.name,
+        email: user.email
       }
       render json: session[:user], status: 201
     else
