@@ -3,7 +3,7 @@
 
   var endpoint = 'http://asset-management.lvh.me/api/auth/session';
 
-  angular.module('assetControllers').controller('LoginCtrl', ['$scope', '$http', '$location', LoginCtrl]);
+  angular.module('assets.login').controller('LoginCtrl', ['$scope', '$http', '$location', LoginCtrl]);
 
   function LoginCtrl(scope, $http, $location) {
     scope.signinButtonEnabled = true;

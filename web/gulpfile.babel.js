@@ -24,8 +24,8 @@ gulp.task('styles', () => {
 });
 
 gulp.task('partials', () => {
-  return gulp.src('./app/partials/*.html')
-    .pipe(gulp.dest('./dist/partials'));
+  return gulp.src('./app/scripts/**/*.html')
+    .pipe(gulp.dest('./dist/scripts'));
 });
 
 gulp.task('html', ['styles', 'partials'], () => {

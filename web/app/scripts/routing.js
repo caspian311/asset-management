@@ -1,17 +1,17 @@
 (function() {
   'use strict';
 
-  var app = angular.module('app');
+  var app = angular.module('assets');
 
   app.config(['$routeProvider',
     function($routeProvider) {
       $routeProvider.
         when('/login', {
-          templateUrl: 'partials/login.html',
+          templateUrl: 'scripts/login/login.html',
           controller: 'LoginCtrl'
         }).
         when('/home', {
-          templateUrl: 'partials/home.html',
+          templateUrl: 'scripts/home/home.html',
           controller: 'HomeCtrl'
         }).
         otherwise({

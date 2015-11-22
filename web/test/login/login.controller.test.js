@@ -7,7 +7,7 @@
     var scope, controller, httpBackend
       , authRequestHandler, location;
 
-    beforeEach(module('assetControllers'));
+    beforeEach(module('assets.login'));
 
     beforeEach(inject(function($httpBackend, $controller) {
       scope = {};

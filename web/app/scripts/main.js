@@ -1,6 +1,5 @@
 (function() {
   'use strict';
 
-  angular.module('app', ['ngRoute', 'assetControllers']);
-  angular.module('assetControllers', ['ngCookies']);
+  angular.module('assets', ['ngRoute', 'assets.login', 'assets.home']);
 })();

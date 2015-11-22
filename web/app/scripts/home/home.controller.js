@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('assetControllers').controller('HomeCtrl', ['$scope', '$location', '$cookies', HomeCtrl]);
+  angular.module('assets.home').controller('HomeCtrl', ['$scope', '$location', '$cookies', HomeCtrl]);
 
   function HomeCtrl(scope, $location, $cookies) {
     activate();

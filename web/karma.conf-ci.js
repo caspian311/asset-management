@@ -10,20 +10,23 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['mocha', 'chai'],
+    frameworks: ['mocha', 'chai', 'sinon'],
 
 
     // list of files / patterns to load in the browser
     files: [
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
-      'bower_components/sinon/lib/sinon.js',
+      'bower_components/angular-cookies/angular-cookies.js',
 
       'app/scripts/main.js',
-      'app/scripts/**/*.js',
+      'app/scripts/login/login.module.js',
+      'app/scripts/login/*.js',
+      'app/scripts/home/home.module.js',
+      'app/scripts/home/*.js',
 
       'test/test_helper.js',
-      'test/**/*_test.js'
+      'test/**/*.test.js'
     ],
 
 
@@ -41,20 +44,15 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress', 'junit'],
+    reporters: ['progress'],
 
-    junitReporter: {
-      outputDir: 'test-results', // results will be saved as $outputDir/$browserName.xml
-      outputFile: 'tests.xml', // if included, results will be saved as $outputDir/$browserName/$outputFile
-      suite: 'asset-management' // suite will become the package name attribute in xml testsuite element
-    },
 
     // web server port
     port: 9876,
 
 
     // enable / disable colors in the output (reporters and logs)
-    colors: false,
+    colors: true,
 
 
     // level of logging
@@ -78,7 +76,5 @@ module.exports = function(config) {
     // Concurrency level
     // how many browser should be started simultanous
     concurrency: Infinity
-
-
   })
 }

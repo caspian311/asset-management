@@ -20,10 +20,13 @@ module.exports = function(config) {
       'bower_components/angular-cookies/angular-cookies.js',
 
       'app/scripts/main.js',
-      'app/scripts/**/*.js',
+      'app/scripts/login/login.module.js',
+      'app/scripts/login/*.js',
+      'app/scripts/home/home.module.js',
+      'app/scripts/home/*.js',
 
       'test/test_helper.js',
-      'test/**/*_test.js'
+      'test/**/*.test.js'
     ],
 
 
@@ -63,7 +66,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: ['Firefox', 'Chrome'],
 
 
     // Continuous Integration mode

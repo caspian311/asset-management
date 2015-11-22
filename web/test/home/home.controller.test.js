@@ -4,7 +4,7 @@
   describe('HomeCtrl', function () {
     var scope, location, controller, cookies;
 
-    beforeEach(module('assetControllers'));
+    beforeEach(module('assets.home'));
 
     beforeEach(inject(function($controller) {
       scope = {};
