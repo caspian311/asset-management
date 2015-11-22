@@ -1,11 +1,11 @@
 (function() {
   'use strict';
 
-  var endpoint = 'http://localhost:3000/api/auth/session';
+  var endpoint = 'http://asset-management.lvh.me/api/auth/session';
 
-  angular.module('assetControllers', []).controller('LoginCtrl', ['$scope', '$http', LoginController]);
+  angular.module('assetControllers').controller('LoginCtrl', ['$scope', '$http', '$location', LoginCtrl]);
 
-  function LoginController(scope, $http) {
+  function LoginCtrl(scope, $http, $location) {
     scope.signinButtonEnabled = true;
 
     scope.signin = function() {
@@ -25,6 +25,7 @@
 
     function loginSuccess() {
       scope.signinButtonEnabled = true;
+      $location.path('/home');
     }
   }
 })();

@@ -1,11 +1,11 @@
 (function () {
   'use strict';
 
-  var endpoint = 'http://localhost:3000/api/auth/session';
+  var endpoint = 'http://asset-management.lvh.me/api/auth/session';
 
   describe('LoginCtrl', function () {
     var scope, controller, httpBackend
-      , authRequestHandler;
+      , authRequestHandler, location;
 
     beforeEach(module('assetControllers'));
 
@@ -13,32 +13,17 @@
       scope = {};
       httpBackend = $httpBackend;
       authRequestHandler = httpBackend.when('POST', endpoint);
+      location = { path: sinon.spy() };
 
-      controller = $controller('LoginCtrl', {$scope: scope});
+      controller = $controller('LoginCtrl', {$scope: scope, $location: location});
     }));
 
     afterEach(function() {
-      //httpBackend.verifyNoOutstandingExpectation();
-      //httpBackend.verifyNoOutstandingRequest();
+      httpBackend.verifyNoOutstandingExpectation();
+      httpBackend.verifyNoOutstandingRequest();
     });
 
     describe('#signin', function () {
-      function verifyLoginButtonBehavior() {
-          it('disable signin button while submitting', function() {
-              authRequestHandler.respond(200, {});
-
-              scope.signinButtonEnabled = true;
-
-              scope.signin();
-
-              expect(scope.signinButtonEnabled).to.be.false; 
-
-              httpBackend.flush();
-
-              expect(scope.signinButtonEnabled).to.be.true; 
-          });
-      }
-
       describe('successful login', function() {
         beforeEach(function() {
           authRequestHandler.respond(200, {});
@@ -58,10 +43,21 @@
           scope.signin();
           httpBackend.flush();
 
-          // todo
+          expect(location.path.called).to.be.true;
+          assert(location.path.calledWith('/home'), 'did not redirect home');
         });
 
-        verifyLoginButtonBehavior();
+        it('disable signin button while submitting', function() {
+            authRequestHandler.respond(200, {});
+
+            scope.signinButtonEnabled = true;
+
+            scope.signin();
+            expect(scope.signinButtonEnabled).to.be.false; 
+
+            httpBackend.flush();
+            expect(scope.signinButtonEnabled).to.be.true; 
+        });
       });
 
       describe('invalid login', function() {
