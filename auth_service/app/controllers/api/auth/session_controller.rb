@@ -2,8 +2,8 @@ class Api::Auth::SessionController < ApplicationController
   respond_to :json
 
   def index
-    if session[:user]
-      render json: session[:user]
+    if cookies[:user]
+      render json: cookies[:user]
     else
       render nothing: true, status: 401
     end
@@ -12,18 +12,18 @@ class Api::Auth::SessionController < ApplicationController
   def create
     user = User.find_by credentials
     if user
-      session[:user] = { 
+      cookies[:user] = JSON.generate({ 
         name: user.name,
         email: user.email
-      }
-      render json: session[:user], status: 201
+      })
+      render json: cookies[:user], status: 201
     else
       render nothing: true, status: 401
     end
   end
 
   def destroy
-    session[:user] = nil
+    cookies.delete :user
     render nothing: true
   end
 
