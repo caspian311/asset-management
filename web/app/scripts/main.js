@@ -1,1 +1,5 @@
-console.log('\'Allo \'Allo!');
+(function() {
+  'use strict';
+
+  angular.module('assets', ['ngRoute', 'assets.login', 'assets.home']);
+})();
