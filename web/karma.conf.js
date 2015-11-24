@@ -21,10 +21,8 @@ module.exports = function(config) {
       'bower_components/angular-route/angular-route.js',
 
       'app/scripts/main.js',
-      'app/scripts/login/login.module.js',
-      'app/scripts/login/*.js',
-      'app/scripts/home/home.module.js',
-      'app/scripts/home/*.js',
+      'app/scripts/**/*.module.js',
+      'app/scripts/**/*.js',
 
       'test/test_helper.js',
       'test/**/*.test.js'
