@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('assets.home').controller('RegisterController', ['$scope', RegisterController]);
+  angular.module('assets.register').controller('RegisterController', ['$scope', RegisterController]);
 
   function RegisterController(scope) {
     activate();
