@@ -24,7 +24,7 @@
       scope.registerButtonEnabled = false;
       scope.$watch('[firstName, lastName, email, password, confirmPassword]', 
           function() { 
-            scope.registerButtonEnabled = allFieldArePresent() && isPasswordConfirmed();
+            scope.registerButtonEnabled = allFieldsArePresent() && isPasswordConfirmed();
           }, true);
     }
 
@@ -32,12 +32,12 @@
       return scope.password === scope.confirmPassword;
     }
 
-    function allFieldArePresent() {
-      return scope.firstName.length > 0 && 
-            scope.lastName.length > 0 && 
-            scope.email.length > 0 && 
-            scope.password.length > 0 && 
-            scope.confirmPassword.length > 0;
+    function allFieldsArePresent() {
+      return scope.firstName && scope.firstName.length > 0 && 
+            scope.lastName && scope.lastName.length > 0 && 
+            scope.email && scope.email.length > 0 && 
+            scope.password && scope.password.length > 0 && 
+            scope.confirmPassword && scope.confirmPassword.length > 0;
     }
 
   }
