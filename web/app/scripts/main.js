@@ -5,6 +5,7 @@
     'ngRoute', 
     'assets.login', 
     'assets.register', 
-    'assets.home'
+    'assets.home',
+    'assets.endpoints'
     ]);
 })();

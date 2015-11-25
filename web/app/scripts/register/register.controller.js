@@ -1,14 +1,14 @@
 (function() {
   'use strict';
 
-  var endpoint = 'http://asset-management.lvh.me/api/user';
-  angular.module('assets.register').controller('RegisterController', ['$scope', '$http', RegisterController]);
+  angular.module('assets.register').controller('RegisterController', 
+      ['$scope', '$http', 'endpoints', RegisterController]);
 
-  function RegisterController(scope, $http) {
+  function RegisterController(scope, $http, endpoints) {
     activate();
 
     scope.register = function() {
-      $http.post(endpoint, payload());
+      $http.post(endpoints.userUrl, payload());
     }
 
     function payload() {

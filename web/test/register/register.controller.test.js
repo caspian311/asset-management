@@ -1,17 +1,16 @@
 (function () {
   'use strict';
 
-  var endpoint = 'http://asset-management.lvh.me/api/user';
-
   describe('RegisterController', function () {
-    var scope, httpBackend, createUserRequestHandler;
+    var scope, httpBackend, createUserRequestHandler, userUrl;
 
     beforeEach(module('assets.register'));
 
-    beforeEach(inject(function($rootScope, $httpBackend, $controller) {
+    beforeEach(inject(function($rootScope, $httpBackend, $controller, $injector) {
       scope = $rootScope.$new();
       httpBackend = $httpBackend;
-      createUserRequestHandler = httpBackend.when('POST', endpoint);
+      userUrl = $injector.get('endpoints').userUrl;
+      createUserRequestHandler = httpBackend.when('POST', userUrl);
 
       $controller('RegisterController', { $scope: scope });
     }));
@@ -78,7 +77,7 @@
           'email': email,
           'password': password
         };
-        httpBackend.expectPOST(endpoint, expectedPayload);
+        httpBackend.expectPOST(userUrl, expectedPayload);
 
         scope.register();
         httpBackend.flush();

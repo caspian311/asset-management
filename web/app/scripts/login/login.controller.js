@@ -1,17 +1,16 @@
 (function() {
   'use strict';
 
-  var endpoint = 'http://asset-management.lvh.me/api/auth/session';
+  angular.module('assets.login').controller('LoginCtrl', 
+      ['$scope', '$http', '$location', 'endpoints', LoginCtrl]);
 
-  angular.module('assets.login').controller('LoginCtrl', ['$scope', '$http', '$location', LoginCtrl]);
-
-  function LoginCtrl(scope, $http, $location) {
+  function LoginCtrl(scope, $http, $location, endpoints) {
     scope.signinButtonEnabled = true;
 
     scope.signin = function() {
       scope.signinButtonEnabled = false;
 
-      $http.post(endpoint, { email: scope.email, password: scope.password })
+      $http.post(endpoints.authUrl, { email: scope.email, password: scope.password })
         .success(loginSuccess)
         .error(loginFailed);
     }

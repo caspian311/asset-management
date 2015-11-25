@@ -1,18 +1,17 @@
 (function () {
   'use strict';
 
-  var endpoint = 'http://asset-management.lvh.me/api/auth/session';
-
   describe('LoginCtrl', function () {
     var scope, controller, httpBackend
-      , authRequestHandler, location;
+      , authRequestHandler, location, authUrl;
 
     beforeEach(module('assets.login'));
 
-    beforeEach(inject(function($httpBackend, $controller) {
+    beforeEach(inject(function($httpBackend, $controller, $injector) {
+      authUrl = $injector.get('endpoints').authUrl;
       scope = {};
       httpBackend = $httpBackend;
-      authRequestHandler = httpBackend.when('POST', endpoint);
+      authRequestHandler = httpBackend.when('POST', authUrl);
       location = { path: sinon.spy() };
 
       controller = $controller('LoginCtrl', {$scope: scope, $location: location});
@@ -33,7 +32,7 @@
           scope.email = 'given email';
           scope.password = 'given password';
           
-          httpBackend.expectPOST(endpoint, { email: 'given email', password: 'given password' });
+          httpBackend.expectPOST(authUrl, { email: 'given email', password: 'given password' });
 
           scope.signin();
           httpBackend.flush();
@@ -76,7 +75,7 @@
           scope.email = 'bad email';
           scope.password = 'bad password';
 
-          httpBackend.expectPOST(endpoint);
+          httpBackend.expectPOST(authUrl);
 
           scope.signin();
           httpBackend.flush();
