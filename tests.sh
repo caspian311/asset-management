@@ -3,6 +3,8 @@
 echo "Running web tests..."
 
 pushd web &> /dev/null
+  npm install &> /dev/null
+  bower install &> /dev/null
   karma start karma.conf-ci.js
 popd &> /dev/null
 
