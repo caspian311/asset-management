@@ -15,7 +15,13 @@
     <input type="password" id="inputPassword" class="form-control" placeholder="Password" ng-model="password">
 
     <button class="btn btn-lg btn-primary btn-block" type="submit" ng-disabled="!signinButtonEnabled" ng-click="signin()">Sign in</button>
+
   </form>
+
+  <div class="registration-link">
+    New user? <a id="go-register" ng-click="goRegister()">Register here!</a>
+  </div>
+
 
 </div>
 

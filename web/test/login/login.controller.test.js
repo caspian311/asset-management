@@ -22,6 +22,14 @@
       httpBackend.verifyNoOutstandingRequest();
     });
 
+    describe('#goRegister', function () {
+      it('should redirect user to the registation page', function() {
+        scope.goRegister();
+
+        assert(location.path.calledWith('/register'), 'did not redirect to registration page');
+      });
+    });
+
     describe('#signin', function () {
       describe('successful login', function() {
         beforeEach(function() {

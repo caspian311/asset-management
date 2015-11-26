@@ -7,6 +7,9 @@
   function LoginCtrl(scope, $http, $location, endpoints) {
     scope.signinButtonEnabled = true;
 
+    scope.goRegister = function() {
+      $location.path('/register');
+    };
     scope.signin = function() {
       scope.signinButtonEnabled = false;
 
