@@ -5,7 +5,7 @@
       var baseUrl = 'http://asset-management.lvh.me/api';
       
       return {
-        authUrl: baseUrl + '/auth/session',
+        authUrl: baseUrl + '/session',
         userUrl: baseUrl + '/user'
       };
     }]);

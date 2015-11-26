@@ -1,4 +1,4 @@
-class Api::Auth::SessionController < ApplicationController
+class Api::SessionController < ApplicationController
   respond_to :json
 
   def index

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Api::Auth::SessionController do
+describe Api::SessionController do
   let(:email) { 'matt@todd.net' }
   let(:password) { 'secret' }
   let!(:user) { create :user, email: email, password: password, first_name: 'Matt', last_name: 'Todd' }
@@ -9,7 +9,7 @@ describe Api::Auth::SessionController do
   context 'user is not logged in' do
     context '#index' do
       it 'return 200' do
-        get api_auth_session_index_path
+        get api_session_index_path
 
         expect(response).to have_http_status(401)
       end
@@ -18,29 +18,29 @@ describe Api::Auth::SessionController do
 
   context 'user is logged in' do
     before do
-      post api_auth_session_index_path, valid_credentials
+      post api_session_index_path, valid_credentials
     end
 
     after do
-      delete api_auth_session_path('user')
+      delete api_session_path('user')
     end
 
     context '#index' do
       it 'return 200' do
-        get api_auth_session_index_path
+        get api_session_index_path
 
         expect(response).to have_http_status(200)
       end
 
       it 'return users information' do
-        get api_auth_session_index_path
+        get api_session_index_path
 
         expect(parsed_body['email']).to eq('matt@todd.net')
         expect(parsed_body['name']).to eq('Matt Todd')
       end
 
       it 'dont return user sensitive info' do
-        get api_auth_session_index_path
+        get api_session_index_path
 
         expect(parsed_body['password']).to be_nil
       end
@@ -48,9 +48,9 @@ describe Api::Auth::SessionController do
 
     context '#destroy' do
       it 'should log out the user' do
-        delete api_auth_session_path('user')
+        delete api_session_path('user')
 
-        get api_auth_session_index_path
+        get api_session_index_path
 
         expect(response).to have_http_status(401)
       end
@@ -64,7 +64,7 @@ describe Api::Auth::SessionController do
   context 'user presents valid credentials' do
     context '#create' do
       it 'return 201' do
-        post api_auth_session_index_path, valid_credentials
+        post api_session_index_path, valid_credentials
 
         expect(response).to have_http_status(201)
       end
@@ -76,7 +76,7 @@ describe Api::Auth::SessionController do
 
     context '#create' do
       it 'return 401' do
-        post api_auth_session_index_path, invalid_credentials
+        post api_session_index_path, invalid_credentials
 
         expect(response).to have_http_status(401)
       end
