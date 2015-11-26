@@ -13,8 +13,8 @@
 
     function payload() {
       return {
-        'firstName': scope.firstName,
-        'lastName': scope.lastName,
+        'first_name': scope.firstName,
+        'last_name': scope.lastName,
         'email': scope.email,
         'password': scope.password
       };
