@@ -2,7 +2,8 @@
   'use strict';
 
   describe('RegisterController', function () {
-    var scope, httpBackend, createUserRequestHandler, userUrl;
+    var scope, httpBackend, createUserRequestHandler, 
+      userUrl, location;
 
     beforeEach(module('assets.register'));
 
@@ -11,8 +12,9 @@
       httpBackend = $httpBackend;
       userUrl = $injector.get('endpoints').userUrl;
       createUserRequestHandler = httpBackend.when('POST', userUrl);
+      location = { path: sinon.spy() };
 
-      $controller('RegisterController', { $scope: scope });
+      $controller('RegisterController', { $scope: scope, $location: location });
     }));
 
     describe('initially', function() {
@@ -72,8 +74,8 @@
         scope.confirmPassword = password;
 
         var expectedPayload = {
-          'firstName': firstName,
-          'lastName': lastName,
+          'first_name': firstName,
+          'last_name': lastName,
           'email': email,
           'password': password
         };
@@ -81,6 +83,14 @@
 
         scope.register();
         httpBackend.flush();
+      });
+
+      it('should redirect to login page', function() {
+        scope.register();
+        httpBackend.flush();
+
+        expect(location.path.called).to.be.true;
+        assert(location.path.calledWith('/login'), 'did not redirect to login');
       });
     });
   });

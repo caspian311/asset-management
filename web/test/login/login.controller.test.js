@@ -71,7 +71,7 @@
           expect(scope.status).to.equal('Login failed');
         });
 
-        it('should ', function () {
+        it('should clear out the form', function () {
           scope.email = 'bad email';
           scope.password = 'bad password';
 

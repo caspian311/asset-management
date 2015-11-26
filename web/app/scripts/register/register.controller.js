@@ -2,13 +2,16 @@
   'use strict';
 
   angular.module('assets.register').controller('RegisterController', 
-      ['$scope', '$http', 'endpoints', RegisterController]);
+      ['$scope', '$http', 'endpoints', '$location', RegisterController]);
 
-  function RegisterController(scope, $http, endpoints) {
+  function RegisterController(scope, $http, endpoints, $location) {
     activate();
 
     scope.register = function() {
-      $http.post(endpoints.userUrl, payload());
+      $http.post(endpoints.userUrl, payload())
+        .success(function() {
+          $location.path('/login');
+        });
     }
 
     function payload() {
