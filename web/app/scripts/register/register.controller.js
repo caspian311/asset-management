@@ -11,6 +11,9 @@
       $http.post(endpoints.userUrl, payload())
         .success(function() {
           $location.path('/login');
+        })
+        .error(function() {
+          scope.error_message = 'Failed to register user';
         });
     }
 

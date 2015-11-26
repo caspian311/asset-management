@@ -52,45 +52,72 @@
     });
 
     describe('#register', function () {
-      beforeEach(function() {
-        createUserRequestHandler.respond(201, {});
-      });
+      describe('successful registration', function() {
+        beforeEach(function() {
+          createUserRequestHandler.respond(201, {});
+        });
 
-      afterEach(function() {
-        httpBackend.verifyNoOutstandingExpectation();
-        httpBackend.verifyNoOutstandingRequest();
-      });
+        afterEach(function() {
+          httpBackend.verifyNoOutstandingExpectation();
+          httpBackend.verifyNoOutstandingRequest();
+        });
 
-      it('should create the user', function() {
-        var firstName = 'first';
-        var lastName = 'last';
-        var email = 'email';
-        var password = 'password';
+        it('should create the user', function() {
+          var firstName = 'first';
+          var lastName = 'last';
+          var email = 'email';
+          var password = 'password';
 
-        scope.firstName = firstName;
-        scope.lastName = lastName;
-        scope.email = email;
-        scope.password = password;
-        scope.confirmPassword = password;
+          scope.firstName = firstName;
+          scope.lastName = lastName;
+          scope.email = email;
+          scope.password = password;
+          scope.confirmPassword = password;
 
-        var expectedPayload = {
-          'first_name': firstName,
+          var expectedPayload = {
+            'first_name': firstName,
           'last_name': lastName,
           'email': email,
           'password': password
-        };
-        httpBackend.expectPOST(userUrl, expectedPayload);
+          };
+          httpBackend.expectPOST(userUrl, expectedPayload);
 
-        scope.register();
-        httpBackend.flush();
+          scope.register();
+          httpBackend.flush();
+        });
+
+        it('should redirect to login page', function() {
+          scope.register();
+          httpBackend.flush();
+
+          expect(location.path.called).to.be.true;
+          assert(location.path.calledWith('/login'), 'did not redirect to login');
+        });
+
+        it('should not show error message', function() {
+          scope.register();
+          httpBackend.flush();
+
+          expect(scope.error_message).to.be.empty;
+        });
       });
 
-      it('should redirect to login page', function() {
-        scope.register();
-        httpBackend.flush();
+      describe('failed registration', function() {
+        beforeEach(function() {
+          createUserRequestHandler.respond(400, {});
+        });
 
-        expect(location.path.called).to.be.true;
-        assert(location.path.calledWith('/login'), 'did not redirect to login');
+        afterEach(function() {
+          httpBackend.verifyNoOutstandingExpectation();
+          httpBackend.verifyNoOutstandingRequest();
+        });
+
+        it('should show error message', function() {
+          scope.register();
+          httpBackend.flush();
+
+          expect(scope.error_message).to.equal('Failed to register user');
+        });
       });
     });
   });
