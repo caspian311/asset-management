@@ -1,24 +1,63 @@
 #!/bin/bash -e
 
-echo "Running web tests..."
+function go_into {
+  echo '--------------------------------------------------------------------------------';
+  echo "For $1"
+  pushd $1 &> /dev/null
+}
 
-pushd web &> /dev/null
-  npm install &> /dev/null
-  bower install &> /dev/null
-  karma start karma.conf-ci.js
-popd &> /dev/null
+function go_back {
+  popd &> /dev/null
+}
 
-echo "Running auth_service tests..."
+function execute_command {
+  command=$@
+  echo -n "  Running: "
+  echo -en $'\e[33m'"$command"$'\e[0m'
 
-pushd auth_service &> /dev/null
-  bundle &> /dev/null
-  bundle exec rspec
-popd &> /dev/null
+  set +e
+  output=$($command 2>&1) 
+  error_code=$?
+  set -e
+  if [ $error_code -eq 0 ]
+  then
+    echo -n " ["
+    echo -n $'\e[32mpass\e[0m'
+    echo "]"
+  fi
 
-echo "Running user_service tests..."
+  if [ $error_code -ne 0 ]
+  then
+    echo -n " ["
+    echo -en $'\e[31mfailed\e[0m'
+    echo "]"
 
-pushd user_service &> /dev/null
-  bundle &> /dev/null
-  bundle exec rake db:migrate &> /dev/null
-  bundle exec rspec
-popd &> /dev/null
+    echo '********************************************************************************';
+    echo "Error:"
+    echo 
+    echo "$output"
+    echo '********************************************************************************';
+  fi
+}
+
+go_into web
+  execute_command npm install
+  execute_command bower install
+  execute_command karma start karma.conf-ci.js
+go_back
+
+go_into user_service
+  execute_command bundle
+  execute_command bundle exec rake db:migrate
+  execute_command bundle exec rspec
+go_back
+
+go_into auth_service
+  execute_command bundle
+  execute_command rake db:migrate
+  execute_command bundle exec rspec
+go_back
+
+echo
+echo "Done"
+
