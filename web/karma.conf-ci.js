@@ -21,10 +21,8 @@ module.exports = function(config) {
       'bower_components/angular-route/angular-route.js',
 
       'app/scripts/main.js',
-      'app/scripts/login/login.module.js',
-      'app/scripts/login/*.js',
-      'app/scripts/home/home.module.js',
-      'app/scripts/home/*.js',
+      'app/scripts/**/*.module.js',
+      'app/scripts/**/*.js',
 
       'test/test_helper.js',
       'test/**/*.test.js'
@@ -45,7 +43,7 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['mocha'],
 
 
     // web server port

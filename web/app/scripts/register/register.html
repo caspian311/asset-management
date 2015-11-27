@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="alert alert-danger" role="alert" ng-show="error_message">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span class="sr-only">Error:</span>
+    {{ error_message }}
+  </div>
+
+  <form class="form form-register">
+    <h2 class="form-heading">Register</h2>
+
+    <label for="first-name" class="sr-only">First name</label>
+    <input type="text" id="first-name" class="form-control" 
+          placeholder="First name" autofocus ng-model="firstName" />
+
+    <label for="last-name" class="sr-only">Last name</label>
+    <input type="text" id="last-name" class="form-control" 
+          placeholder="Last name" ng-model="lastName" />
+
+    <label for="email" class="sr-only">Email</label>
+    <input type="text" id="email" class="form-control" 
+          placeholder="Email" ng-model="email" />
+
+    <label for="password" class="sr-only">Password</label>
+    <input type="text" id="password" class="form-control" 
+          placeholder="Password" ng-model="password" />
+
+    <label for="confirm-password" class="sr-only">Confirm password</label>
+    <input type="text" id="confirm-password" class="form-control" 
+          placeholder="Confirm password" ng-model="confirmPassword" />
+
+    <div class="btn-group btn-group-justified" role="group">
+      <div class="btn-group">
+        <button class="btn btn-lg btn-primary" type="submit" 
+            ng-click="register()" ng-disabled="!registerButtonEnabled">Register</button>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-lg btn-default" 
+            ng-click="cancel()">Cancel</button>
+      </div>
+    </div>
+  </form>
+</div>
+

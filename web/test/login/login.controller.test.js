@@ -1,18 +1,17 @@
 (function () {
   'use strict';
 
-  var endpoint = 'http://asset-management.lvh.me/api/auth/session';
-
   describe('LoginCtrl', function () {
     var scope, controller, httpBackend
-      , authRequestHandler, location;
+      , authRequestHandler, location, authUrl;
 
     beforeEach(module('assets.login'));
 
-    beforeEach(inject(function($httpBackend, $controller) {
+    beforeEach(inject(function($httpBackend, $controller, $injector) {
+      authUrl = $injector.get('endpoints').authUrl;
       scope = {};
       httpBackend = $httpBackend;
-      authRequestHandler = httpBackend.when('POST', endpoint);
+      authRequestHandler = httpBackend.when('POST', authUrl);
       location = { path: sinon.spy() };
 
       controller = $controller('LoginCtrl', {$scope: scope, $location: location});
@@ -21,6 +20,14 @@
     afterEach(function() {
       httpBackend.verifyNoOutstandingExpectation();
       httpBackend.verifyNoOutstandingRequest();
+    });
+
+    describe('#goRegister', function () {
+      it('should redirect user to the registation page', function() {
+        scope.goRegister();
+
+        assert(location.path.calledWith('/register'), 'did not redirect to registration page');
+      });
     });
 
     describe('#signin', function () {
@@ -33,7 +40,7 @@
           scope.email = 'given email';
           scope.password = 'given password';
           
-          httpBackend.expectPOST(endpoint, { email: 'given email', password: 'given password' });
+          httpBackend.expectPOST(authUrl, { email: 'given email', password: 'given password' });
 
           scope.signin();
           httpBackend.flush();
@@ -72,11 +79,11 @@
           expect(scope.status).to.equal('Login failed');
         });
 
-        it('should ', function () {
+        it('should clear out the form', function () {
           scope.email = 'bad email';
           scope.password = 'bad password';
 
-          httpBackend.expectPOST(endpoint);
+          httpBackend.expectPOST(authUrl);
 
           scope.signin();
           httpBackend.flush();
