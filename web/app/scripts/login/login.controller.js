@@ -10,6 +10,7 @@
     scope.goRegister = function() {
       $location.path('/register');
     };
+
     scope.signin = function() {
       scope.signinButtonEnabled = false;
 

@@ -1,85 +1,65 @@
 require 'rails_helper'
 
 describe Api::SessionController do
-  let(:email) { 'matt@todd.net' }
-  let(:password) { 'secret' }
-  let!(:user) { create :user, email: email, password: password, first_name: 'Matt', last_name: 'Todd' }
-  let(:valid_credentials) { { email: email, password: password } }
+  let(:endpoint_base) { "http://localhost:3001/api/user" }
+  let(:email) { 'some@email.com' }
+  let(:password) { 'some pass' }
+  let(:credentials) { { email: email, password: password } }
+
+  def endpoint
+    "#{endpoint_base}?email=#{email}&password=#{password}"
+  end
+
+  before do
+    allow(subject).to receive(:cookies) { {} }
+  end
 
   context 'user is not logged in' do
-    context '#index' do
-      it 'return 200' do
-        get api_session_index_path
-
-        expect(response).to have_http_status(401)
-      end
-    end
-  end
-
-  context 'user is logged in' do
     before do
-      post api_session_index_path, valid_credentials
+      allow(subject).to receive(:cookies) { {} }
     end
-
-    after do
-      delete api_session_path('user')
-    end
-
-    context '#index' do
-      it 'return 200' do
-        get api_session_index_path
-
-        expect(response).to have_http_status(200)
-      end
-
-      it 'return users information' do
-        get api_session_index_path
-
-        expect(parsed_body['email']).to eq('matt@todd.net')
-        expect(parsed_body['name']).to eq('Matt Todd')
-      end
-
-      it 'dont return user sensitive info' do
-        get api_session_index_path
-
-        expect(parsed_body['password']).to be_nil
-      end
-    end
-
-    context '#destroy' do
-      it 'should log out the user' do
-        delete api_session_path('user')
-
-        get api_session_index_path
-
-        expect(response).to have_http_status(401)
-      end
-    end
-  end
-
-  def parsed_body
-    JSON.parse response.body
-  end
-
-  context 'user presents valid credentials' do
-    context '#create' do
-      it 'return 201' do
-        post api_session_index_path, valid_credentials
-
-        expect(response).to have_http_status(201)
-      end
-    end
-  end
-
-  context 'user presents invalid credentials' do
-    let(:invalid_credentials) { { email: email, password: 'monkey' } }
 
     context '#create' do
-      it 'return 401' do
-        post api_session_index_path, invalid_credentials
+      context 'invalid credentials are provided' do
+        before do
+          stub_request(:get, endpoint).to_return(:status => 404, :body => "")
+        end
 
-        expect(response).to have_http_status(401)
+        it 'should return a 401' do
+          post api_session_index_path, credentials
+
+          expect(response).to have_http_status(401)
+        end
+
+        it 'should not populate user data in cookies' do
+          post api_session_index_path, credentials
+
+          expect(response.cookies['user']).to be_nil
+        end
+      end
+
+      context 'valid credentials are provided' do
+        before do
+          stub_request(:get, endpoint).to_return(:status => 200, :body => user_data)
+        end
+
+        it 'should return a 200' do
+          post api_session_index_path, credentials
+
+          expect(response).to have_http_status(201)
+        end
+
+        it 'should populate user data in cookies' do
+          post api_session_index_path, credentials
+
+          expect(response.cookies['user']).to eq(JSON.generate({ name: 'John Doe', email: 'john@doe.com' }))
+        end
+      end
+
+      def user_data
+        JSON.generate({ first_name: 'John', last_name: 'Doe', email: 'john@doe.com' })
       end
     end
   end
 end
+

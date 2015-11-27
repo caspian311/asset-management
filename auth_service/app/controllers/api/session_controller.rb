@@ -10,15 +10,11 @@ class Api::SessionController < ApplicationController
   end
 
   def create
-    user = User.find_by credentials
     if user
-      cookies[:user] = JSON.generate({ 
-        name: user.name,
-        email: user.email
-      })
+      cookies[:user] = user_data user
       render json: cookies[:user], status: 201
     else
-      render nothing: true, status: 401
+      render nothing: true, status: 401 
     end
   end
 
@@ -28,6 +24,17 @@ class Api::SessionController < ApplicationController
   end
 
   private
+  
+  def user
+    @user ||= User.find_by credentials
+  end
+
+  def user_data(user)
+    JSON.generate({ 
+        name: "#{user['first_name']} #{user['last_name']}",
+        email: user['email']
+      })
+  end
 
   def credentials
     params.permit(:email, :password)
