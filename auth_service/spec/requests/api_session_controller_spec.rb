@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Api::SessionController do
-  let(:endpoint_base) { "http://localhost:3001/api/user" }
+  let(:endpoint_base) { configatron.services.user }
   let(:email) { 'some@email.com' }
   let(:password) { 'some pass' }
   let(:credentials) { { email: email, password: password } }

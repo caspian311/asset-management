@@ -7,10 +7,8 @@ class User
     JSON.parse(response.body) if response.status == 200
   end
 
-  private
-
   def self.endpoint
-    'http://localhost:3001/api/user'
+    configatron.services.user
   end
 end
 

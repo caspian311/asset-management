@@ -12,7 +12,6 @@ echo "Running auth_service tests..."
 
 pushd auth_service &> /dev/null
   bundle &> /dev/null
-  bundle exec rake db:migrate &> /dev/null
   bundle exec rspec
 popd &> /dev/null
 
