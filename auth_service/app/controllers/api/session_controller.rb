@@ -1,26 +1,13 @@
 class Api::SessionController < ApplicationController
   respond_to :json
 
-  def index
-    if cookies[:user]
-      render json: cookies[:user]
-    else
-      render nothing: true, status: 401
-    end
-  end
-
   def create
     if user
       cookies[:user] = user_data user
-      render json: cookies[:user], status: 201
+      render nothing: true, status: 201
     else
       render nothing: true, status: 401 
     end
-  end
-
-  def destroy
-    cookies.delete :user
-    render nothing: true
   end
 
   private
