@@ -12,7 +12,7 @@ function go_back {
 
 function execute_command {
   command=$@
-  echo -n "  Running: "
+  echo -n "  > "
   echo -en $'\e[33m'"$command"$'\e[0m'
 
   set +e
@@ -54,7 +54,6 @@ go_back
 
 go_into auth_service
   execute_command bundle
-  execute_command rake db:migrate
   execute_command bundle exec rspec
 go_back
 
