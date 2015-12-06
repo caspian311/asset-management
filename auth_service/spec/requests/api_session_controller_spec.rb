@@ -52,12 +52,18 @@ describe Api::SessionController do
         it 'should populate user data in cookies' do
           post api_session_index_path, credentials
 
-          expect(response.cookies['user']).to eq(JSON.generate({ name: 'John Doe', email: 'john@doe.com' }))
+          expected_data = { id: '1234556', name: 'John Doe', email: 'john@doe.com' }
+          expect(response.cookies['user']).to eq(JSON.generate({ id: '1234556', name: 'John Doe', email: 'john@doe.com' }))
         end
       end
 
       def user_data
-        JSON.generate({ first_name: 'John', last_name: 'Doe', email: 'john@doe.com' })
+        JSON.generate({ 
+          id: 1234556,
+          first_name: 'John',
+          last_name: 'Doe',
+          email: 'john@doe.com' 
+        })
       end
     end
   end

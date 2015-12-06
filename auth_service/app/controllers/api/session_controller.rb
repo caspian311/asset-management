@@ -18,6 +18,7 @@ class Api::SessionController < ApplicationController
 
   def user_data(user)
     JSON.generate({ 
+        id: "#{user['id']}",
         name: "#{user['first_name']} #{user['last_name']}",
         email: user['email']
       })
