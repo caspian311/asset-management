@@ -22,7 +22,11 @@
     });
 
     scope.update = function() {
-      http.put(userUrl(), scope.user).success(function() {});
+      http.put(userUrl(), scope.user).success(function() {
+        scope.successMessage = 'Profile successfully updated.';
+      }).error(function() {
+        scope.errorMessage = 'An error occurred trying to update your Profile.';
+      });
     };
 
     function userUrl() {
