@@ -2,7 +2,7 @@
   'use strict';
 
   describe('ProfileController', function() {
-    var scope, httpBackend, userUrl, cookies;
+    var scope, httpBackend, userUrl, cookies, controller;
 
     beforeEach(module('assets.profile'));
 
@@ -11,9 +11,8 @@
       httpBackend = $httpBackend;
       userUrl = $injector.get('endpoints').userUrl;
       cookies = { getObject: sinon.stub() };
+      controller = $controller;
 
-      cookies.getObject.withArgs('user').returns({ id: 123 });
-      $controller('ProfileController', { $scope: scope, $cookies: cookies });
     }));
 
     afterEach(function() {
@@ -22,6 +21,14 @@
     });
 
     describe('initially', function() {
+      var userId = 123;
+
+      beforeEach(function() {
+        cookies.getObject.withArgs('user').returns({ id: userId });
+
+        controller('ProfileController', { $scope: scope, $cookies: cookies });
+      });
+
       it('pulls profile data from backend', function() {
           var firstName = 'first name'
             , lastName = 'lastName'
@@ -32,7 +39,7 @@
             , state = 'state'
             , zip = 'zip'
             , password = 'password';
-          httpBackend.when('GET', userUrl(123)).respond(200, 
+          httpBackend.when('GET', userUrl(userId)).respond(200, 
             { 
               firstName: firstName,
               lastName: lastName,
