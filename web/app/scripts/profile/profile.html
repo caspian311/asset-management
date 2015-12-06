@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="alert alert-danger" role="alert" ng-show="errorMessage">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    {{ errorMessage }}
+  </div>
+
+  <form class="form form-profile">
+    <h2 class="form-heading">Profile</h2>
+
+    <input type="text" id="first-name" class="form-control" 
+          placeholder="First name" autofocus ng-model="firstName" />
+
+    <input type="text" id="last-name" class="form-control" 
+          placeholder="Last name" ng-model="lastName" />
+
+    <input type="text" id="primary-phone" class="form-control" 
+          placeholder="primary-phone" ng-model="primaryPhone" />
+    <input type="text" id="secondary-phone" class="form-control" 
+          placeholder="secondary-phone" ng-model="secondaryPhone" />
+
+    <input type="text" id="address" class="form-control" 
+          placeholder="address" ng-model="address" />
+    <div class="form-inline">
+      <div class="form-group">
+        <input type="text" id="city" class="form-control" 
+              placeholder="city" ng-model="city" />
+      </div>
+      <div class="form-group">
+        <input type="text" id="state" class="form-control" 
+              placeholder="state" ng-model="state" />
+      </div>
+      <div class="form-group">
+        <input type="text" id="zip" class="form-control" 
+              placeholder="zip" ng-model="zip" />
+      </div>
+    </div>
+
+
+    <input type="text" id="password" class="form-control" 
+          placeholder="Password" ng-model="password" />
+
+    <input type="text" id="confirm-password" class="form-control" 
+          placeholder="Confirm password" ng-model="confirmPassword" />
+
+    <div class="btn-group btn-group-justified" role="group">
+      <div class="btn-group">
+        <button class="btn btn-lg btn-primary" type="submit">Update</button>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-lg btn-default">Cancel</button>
+      </div>
+    </div>
+  </form>
+</div>
+

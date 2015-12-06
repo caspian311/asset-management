@@ -51,6 +51,49 @@ body {
   }
 }
 
+.form-profile {
+  max-width: 700px;
+  padding: 15px;
+  margin: 0 auto;
+
+  input#first-name, input#password, input#primary-phone, input#address {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  input#city {
+    width: 33%;
+    margin-bottom: 10px;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  input#state {
+    width: 33%;
+    margin-bottom: 10px;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  input#zip {
+    width: 33%;
+    margin-bottom: 10px;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  input#last-name, input#confirm-password, input#city, input#state, input#secondary-phone {
+    margin-bottom: 10px;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+  }
+}
+
 .form-signin {
   max-width: 330px;
   padding: 15px;

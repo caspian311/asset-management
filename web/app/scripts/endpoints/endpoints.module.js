@@ -6,7 +6,7 @@
       
       return {
         authUrl: baseUrl + '/session',
-        userUrl: baseUrl + '/user'
+        userUrl: function(id) { return baseUrl + '/user/' + id; }
       };
     }]);
 })();

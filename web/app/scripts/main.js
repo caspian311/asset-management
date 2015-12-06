@@ -6,6 +6,7 @@
     'assets.login', 
     'assets.register', 
     'assets.home',
+    'assets.profile',
     'assets.endpoints'
     ]);
 })();
