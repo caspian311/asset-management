@@ -10,6 +10,10 @@ class Api::UserController < ApplicationController
     end
   end
 
+  def show
+    render json: {}, status: 200
+  end
+
   def create
     status = 400
     status = 200 if User.create(user_data).valid? 

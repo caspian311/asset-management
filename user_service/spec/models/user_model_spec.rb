@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 describe User do
+  it { should have_db_column(:first_name).of_type(:string) }
+  it { should have_db_column(:last_name).of_type(:string) }
+  it { should have_db_column(:email).of_type(:string) }
+  it { should have_db_column(:password).of_type(:string) }
+
   describe 'valid data' do
     let(:valid_user) { User.new first_name: 'first', last_name: 'last', email: 'email', password: 'pass' }
 
