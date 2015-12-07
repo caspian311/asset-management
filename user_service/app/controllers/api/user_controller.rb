@@ -18,8 +18,7 @@ class Api::UserController < ApplicationController
   end
 
   def create
-    status = user_data_valid? ? 200 : 400
-    render nothing: true, status: status
+    render nothing: true, status: user_data_valid? ? 200 : 400
   end
 
   def update
