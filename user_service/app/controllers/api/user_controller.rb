@@ -11,7 +11,8 @@ class Api::UserController < ApplicationController
   end
 
   def show
-    render json: user, status: 200
+    render json: user, status: 200 if user
+    render nothing: true, status: 404 unless user
   end
 
   def create
@@ -22,14 +23,29 @@ class Api::UserController < ApplicationController
 
   private
   def user
-    user = User.find(user_id)
+    @json_user ||= json_user
+  end
+
+  def json_user
+    begin
+      user = User.find(user_id)
+    rescue
+      return nil
+    end
     json_user = JSON.parse(user.to_json)
-    json_user['primary_phone_number'] = user.phone_numbers.first.number
-    json_user['secondary_phone_number'] = user.phone_numbers.second.number
-    json_user['address'] = user.address.address
-    json_user['city'] = user.address.city
-    json_user['state'] = user.address.state
-    json_user['zip'] = user.address.zip
+    
+    if user.phone_numbers.first
+      json_user['primary_phone_number'] = user.phone_numbers.first.number
+    end
+    if user.phone_numbers.second
+      json_user['secondary_phone_number'] = user.phone_numbers.second.number
+    end
+    if user.address
+      json_user['address'] = user.address.address
+      json_user['city'] = user.address.city
+      json_user['state'] = user.address.state
+      json_user['zip'] = user.address.zip
+    end
     json_user
   end
 

@@ -77,6 +77,40 @@ describe Api::UserController do
   end
 
   context 'GET /api/user/{id}' do
+    context 'user does not exist' do
+      it 'should return a 404' do
+        get api_user_path(456)
+
+        expect(response).to have_http_status(404)
+      end
+    end
+
+    context 'user does not have all their data' do
+      let!(:user) { create :user }
+
+      before(:each) do
+        get api_user_path(user.id)
+      end
+
+      it 'should still return a 200' do
+        expect(response).to have_http_status(200)
+      end
+
+      it 'should return the user data' do
+        expect(parse_body['first_name']).to eq('Matt')
+        expect(parse_body['last_name']).to eq('Todd')
+        expect(parse_body['email']).to eq('matt@todd.net')
+      end
+
+      it 'should be missing the data that is not available' do
+        expect(parse_body['primary_phone_number']).to be_nil
+        expect(parse_body['secondary_phone_number']).to be_nil
+        expect(parse_body['address']).to be_nil
+        expect(parse_body['city']).to be_nil
+        expect(parse_body['state']).to be_nil
+      end
+    end
+
     context 'user exists' do
       let!(:user) { create :user }
       let!(:address) { create :address }
@@ -89,15 +123,15 @@ describe Api::UserController do
         user.phone_numbers << phone_number2
       end
 
-      it 'should return a 200' do
+      before(:each) do
         get api_user_path(user.id)
+      end
 
+      it 'should return a 200' do
         expect(response).to have_http_status(200)
       end
 
       it 'should return the user data' do
-        get api_user_path(user.id)
-
         expect(parse_body['first_name']).to eq('Matt')
         expect(parse_body['last_name']).to eq('Todd')
         expect(parse_body['email']).to eq('matt@todd.net')
