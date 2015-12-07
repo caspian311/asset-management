@@ -7,10 +7,10 @@
   function ProfileController(scope, http, cookies, endpoints) {
     http.get(userUrl()).success(function(user) {
       scope.user = {
-        firstName: user.firstName,
-        lastName: user.lastName,
-        primaryPhone: user.primaryPhone,
-        secondaryPhone: user.secondaryPhone,
+        firstName: user.first_name,
+        lastName: user.last_name,
+        primaryPhone: user.primary_phone_number,
+        secondaryPhone: user.secondary_phone_number,
         address: user.address,
         city: user.city,
         state: user.state,

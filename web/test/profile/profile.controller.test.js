@@ -41,15 +41,15 @@
     it('pulls profile data from backend', function() {
       httpBackend.when('GET', userUrl(userId)).respond(200, 
         { 
-          firstName: firstName,
-        lastName: lastName,
-        primaryPhone: primaryPhone,
-        secondaryPhone: secondaryPhone,
-        address: address,
-        city: city,
-        state: state,
-        zip: zip,
-        password: password
+          first_name: firstName,
+          last_name: lastName,
+          primary_phone_number: primaryPhone,
+          secondary_phone_number: secondaryPhone,
+          address: address,
+          city: city,
+          state: state,
+          zip: zip,
+          password: password
         });
       httpBackend.flush();
 
