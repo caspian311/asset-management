@@ -77,6 +77,14 @@ describe Api::UserController do
   end
 
   context 'GET /api/user/{id}' do
+    context 'bad id is given' do
+      it 'should return a 404' do
+        get api_user_path('abc')
+
+        expect(response).to have_http_status(404)
+      end
+    end
+
     context 'user does not exist' do
       it 'should return a 404' do
         get api_user_path(456)
@@ -141,6 +149,26 @@ describe Api::UserController do
         expect(parse_body['city']).to eq('New York City')
         expect(parse_body['state']).to eq('New York')
         expect(parse_body['zip']).to eq('12345')
+      end
+    end
+  end
+
+  context 'PUT /api/user/{id}' do
+    context 'user does not exist' do
+      it 'should return a 404' do
+        put api_user_path(456), {}
+
+        expect(response).to have_http_status(404)
+      end
+    end
+
+    context 'user does exists' do
+      let!(:user) { create :user }
+
+      it 'should return a 201' do
+        put api_user_path(user.id), {}
+
+        expect(response).to have_http_status(201)
       end
     end
   end
