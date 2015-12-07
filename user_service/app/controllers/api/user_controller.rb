@@ -31,6 +31,10 @@ class Api::UserController < ApplicationController
 
   private
 
+  def json_user
+    JsonUserHandler.new.json_user(@user)
+  end
+
   def user_data_valid?
     User.create(user_data).valid? 
   end
@@ -41,28 +45,6 @@ class Api::UserController < ApplicationController
 
   def user_by_id
     @user ||= User.find_by id: params[:id]
-  end
-
-  def json_user
-    user = User.find(user_id)
-    json_user = JSON.parse(user.to_json)
-    
-    if user.phone_numbers.first
-      json_user['primary_phone_number'] = user.phone_numbers.first.number
-    end
-
-    if user.phone_numbers.second
-      json_user['secondary_phone_number'] = user.phone_numbers.second.number
-    end
-
-    if user.address
-      json_user['address'] = user.address.address
-      json_user['city'] = user.address.city
-      json_user['state'] = user.address.state
-      json_user['zip'] = user.address.zip
-    end
-
-    json_user
   end
 
   def user_id
