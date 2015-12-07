@@ -11,7 +11,7 @@ class Api::UserController < ApplicationController
   end
 
   def show
-    render json: {}, status: 200
+    render json: user, status: 200
   end
 
   def create
@@ -21,6 +21,22 @@ class Api::UserController < ApplicationController
   end
 
   private
+  def user
+    user = User.find(user_id)
+    json_user = JSON.parse(user.to_json)
+    json_user['primary_phone_number'] = user.phone_numbers.first.number
+    json_user['secondary_phone_number'] = user.phone_numbers.second.number
+    json_user['address'] = user.address.address
+    json_user['city'] = user.address.city
+    json_user['state'] = user.address.state
+    json_user['zip'] = user.address.zip
+    json_user
+  end
+
+  def user_id
+    params[:id].to_i
+  end
+
   def crendetials
     params.permit :email, :password
   end

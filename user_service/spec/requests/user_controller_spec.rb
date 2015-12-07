@@ -78,12 +78,10 @@ describe Api::UserController do
 
   context 'GET /api/user/{id}' do
     context 'user exists' do
-      let(:first_name) { 'first' }
-      let(:last_name) { 'last' }
       let!(:user) { create :user }
       let!(:address) { create :address }
       let!(:phone_number1) { create :phone_number }
-      let!(:phone_number2) { create :phone_number, number: '555-555-5555' }
+      let!(:phone_number2) { create :phone_number, number: '555-555-0000' }
 
       before do
         user.address = address
@@ -100,11 +98,11 @@ describe Api::UserController do
       it 'should return the user data' do
         get api_user_path(user.id)
 
-        expect(parse_body['first_name']).to eq(first_name)
-        expect(parse_body['last_name']).to eq(last_name)
-        expect(parse_body['email']).to eq(email)
-        expect(parse_body['primary_phone_number']).to eq(phone_number1)
-        expect(parse_body['second_phone_number']).to eq(phone_number2)
+        expect(parse_body['first_name']).to eq('Matt')
+        expect(parse_body['last_name']).to eq('Todd')
+        expect(parse_body['email']).to eq('matt@todd.net')
+        expect(parse_body['primary_phone_number']).to eq('555-555-5555')
+        expect(parse_body['secondary_phone_number']).to eq('555-555-0000')
         expect(parse_body['address']).to eq('123 Sesame St.')
         expect(parse_body['city']).to eq('New York City')
         expect(parse_body['state']).to eq('New York')
