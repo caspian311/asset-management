@@ -48,12 +48,13 @@ go_back
 
 go_into user_service
   execute_command bundle
-  execute_command bundle exec rake db:migrate
+  execute_command RAILS_ENV=test bundle exec rake db:drop db:create db:migrate
   execute_command bundle exec rspec
 go_back
 
 go_into auth_service
   execute_command bundle
+  execute_command RAILS_ENV=test bundle exec rake db:drop db:create db:migrate
   execute_command bundle exec rspec
 go_back
 
