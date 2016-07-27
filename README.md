@@ -40,4 +40,7 @@ Even though all services and components should be separate, I wanted a single pl
 
 ### Running
 
-.... Don't know yet...
+This will create all docker containers and start them all up linked together.
+
+    ./build.sh
+
