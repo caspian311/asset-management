@@ -12,6 +12,8 @@ COPY . .
 
 ENV RAILS_ENV production
 
+ENV USER_SERVICE http://asset-management-user:3000/api/user
+
 ENV DATABASE_HOST asset-management-db
 ENV DATABASE_USERNAME root
 ENV DATABASE_PASSWORD root
