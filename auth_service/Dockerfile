@@ -21,7 +21,5 @@ ENV SECRET_KEY_BASE 21b66d3b4e2c717bf3e5d7522e5738de889c9c83a00b70727c947fd59984
 
 EXPOSE 3000
 
-
 CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
-
 
